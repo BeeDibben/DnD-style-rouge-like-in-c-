@@ -1,20 +1,42 @@
-// DnD style rouge-like in c++.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <location.h>
 
 bool gameLoop = true;
 
-int main()
+
+void initialiseGameComponents() {
+
+}
+
+void intoduction() {
+
+}
+
+void describeArea() {
+
+}
+
+
+void main()
 {
-    srand(time(0));
+    srand((int)time(0));
     
+
 	initialiseGameComponents();
+	intoduction();
 
 	while (gameLoop) {
-
+		
 	}
+	//describeArea();
+		//availableOptions();
+		//if (quest) {
+		//	addToQuestlist()
+		//}
+		//else (travel)
+			//goToNewPlace()
+
+
 	// intro
 		// Start menu
 			// Build character
@@ -38,10 +60,4 @@ int main()
 
 }
 
-void initialiseGameComponents() {
 
-}
-
-void() {
-
-}
