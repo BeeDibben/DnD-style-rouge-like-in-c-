@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Barna\source\repos\DnD style rouge-like in c++\DnD style rouge-like in c++;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +129,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DnD style rouge-like in c++.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="location.h" />
+    <ClInclude Include="player.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="settlementPrefixes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
