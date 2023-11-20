@@ -8,16 +8,27 @@
 class Location
 {
 public:
-	Location(int id){
-		LocationID = id;
+	Location(int id, std::string subClassType){
+		this->LocationID = id;
+		this->subClassType = subClassType;
 	}
 	
 	~Location() {}
 	;
 
 
-private:
+	int getId() {
+		return this->LocationID;
+	}
+
+	std::string getSubclassType() {
+		return this->subClassType;
+	}
+
+protected:
 	int LocationID;
+
+	std::string subClassType;
 };
 
 
@@ -26,11 +37,11 @@ private:
 class Settlement : public Location
 {
 public:
-	Settlement(int passId) : Location(passId){
+	Settlement(int passId) : Location(passId, "Settlement") {
 		buildSettlement();
 	}
 
-	Settlement(int passId, std::string passName, std::string passType, int passPopulation, int passFood, int passArmedCitizens, int passWealth) : Location(passId) {
+	Settlement(int passId, std::string passName, std::string passType, int passPopulation, int passFood, int passArmedCitizens, int passWealth) : Location(passId, "Settlement") {
 		name = passName;
 		type = passType;
 		population = passPopulation;
@@ -54,9 +65,12 @@ public:
 		armedCitizens = buildArmedCitizens();
 		wealth = buildWealth();
 
+
+
 	}
 
 	void printStats() {
+		std::cout << "ID: " << this->LocationID;
 		std::cout << "Name: " << name << "\n";
 		std::cout << "Settlement Type: " << type << "\n";
 		std::cout << "Population count: "  << population << "\n";
@@ -89,7 +103,7 @@ public:
 			return "City";
 			break;
 		default:
-			std::cout << "Error building Settlement";
+			std::cout << "Error building Settlement\n";
 			return "Failiure to build name";
 			break;
 		}
@@ -121,7 +135,7 @@ public:
 				return givenPopulation;
 		}
 		
-		std::cout << "Error building population";		
+		std::cout << "Error building population\n";		
 		return -1;
 	}
 
@@ -179,6 +193,36 @@ public:
 		return fullName;
 
 	}
+
+
+	int getId() {
+		return this->LocationID;
+	}
+
+	std::string getName() {
+		return this->name;
+	}
+
+	std::string getType() {
+		return this->type;
+	}
+
+	int getPopulation() {
+		return this->population;
+	}
+
+	int getFood() {
+		return this->food;
+	}
+
+	int getArmedCitizens() {
+		return this->armedCitizens;
+	}
+
+	int getWealth() {
+		return this->wealth;
+	}
+
 
 private:
 	std::string name;

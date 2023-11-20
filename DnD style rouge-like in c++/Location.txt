@@ -1,0 +1,4 @@
+1,Crystal Frost,City,751,363,174,1043;
+
+2,Shadow Water,Large Town,395,316,56,565;
+

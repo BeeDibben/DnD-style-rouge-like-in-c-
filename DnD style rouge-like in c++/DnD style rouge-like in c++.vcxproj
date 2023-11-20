@@ -132,11 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\Entity.h" />
+    <ClInclude Include="lib\location.h" />
     <ClInclude Include="lib\player.h" />
-    <ClInclude Include="location.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="settlementPrefixes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
