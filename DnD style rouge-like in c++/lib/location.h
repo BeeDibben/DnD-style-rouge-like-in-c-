@@ -8,8 +8,8 @@
 class Location
 {
 public:
-	Location(int id, std::string subClassType){
-		this->LocationID = id;
+	Location(int _id, std::string subClassType){
+		this->LocationID = _id;
 		this->subClassType = subClassType;
 	}
 	
@@ -25,7 +25,20 @@ public:
 		return this->subClassType;
 	}
 
+	void printAdjacentTileIDs() {
+		for (size_t i = 0; i < adjacentTilesIDs.size(); i++)
+		{
+			adjacentTilesIDs[i];
+		}
+	}
 
+	void appenedAdjacent(int _item) {
+		adjacentTilesIDs.push_back(_item);
+	}
+
+	std::vector<int> getAdjectentIds() {
+		return adjacentTilesIDs;
+	}
 
 protected:
 	//unique datapoints
@@ -33,7 +46,7 @@ protected:
 
 	std::string subClassType;
 
-	std::vector<int> adjacentTiles;
+	std::vector<int> adjacentTilesIDs;
 
 	//Global constant variables:
 
@@ -45,12 +58,12 @@ protected:
 
 class Terrain : public Location {
 public:
-	Terrain(const int Id) : Location(Id, "Terrain") {
+	Terrain(const int _Id) : Location(_Id, "Terrain") {
 		buildType();
 		buildStats();
 	}
 
-	Terrain(const int Id,const std::string _type,const int _monsters,const int _food,const int _loot) : Location(Id, "Terrain") {
+	Terrain(const int _Id,const std::string _type,const int _monsters,const int _food,const int _loot) : Location(_Id, "Terrain") {
 		type = _type;
 		monsters = _monsters;
 		food = _food;
@@ -112,6 +125,20 @@ public:
 	
 	}
 
+	void saveToLocation() {
+		std::ofstream locationFile;
+
+		std::string input;
+
+		locationFile.open("Location.txt", std::ios::app);
+
+		input = "ID:" + std::to_string(this->LocationID) + ",SUB_TYPE:" + this->subClassType + ",TERR_TYPE:" + this->type + ",MONS:" + std::to_string(this->monsters) + ",FOOD:" + std::to_string(this->food) + ",LOOT:" + std::to_string(this->loot) + ";";
+
+		locationFile << input << std::endl;
+
+		locationFile.close();
+	}
+
 private:
 	std::string type;
 	
@@ -126,18 +153,20 @@ class Settlement : public Location
 {
 public:
 
-	Settlement(const int passId) : Location(passId, "Settlement") {
+	
+
+	Settlement(const int _id) : Location(_id, "Settlement") {
 		buildSettlement();
 		saveToLocation();
-	}
+	} 
 
-	Settlement(const int passId, const std::string passName, const std::string passType,const int passPopulation,const int passFood,const int passArmedCitizens,const int passWealth) : Location(passId, "Settlement") {
-		name = passName;
-		type = passType;
-		population = passPopulation;
-		food = passFood;
-		armedCitizens = passArmedCitizens;
-		wealth = passWealth;
+	Settlement(const int _id, const std::string _name, const std::string _type,const int _population,const int _food,const int _armedCitizens,const int _wealth) : Location(_id, "Settlement") {
+		name = _name;
+		type = _type;
+		population = _population;
+		food = _food;
+		armedCitizens = _armedCitizens;
+		wealth = _wealth;
 	}
 
 
@@ -153,7 +182,7 @@ public:
 
 		locationFile.open("Location.txt", std::ios::app);
 
-		input = std::to_string(this->LocationID) + "," + this->subClassType + "," + this->name + "," + this->type + "," + std::to_string(this->population) + "," + std::to_string(this->armedCitizens) + "," + std::to_string(this->wealth) + ";";
+		input = "ID:" + std::to_string(this->LocationID) + ",SUB_TYPE:" + this->subClassType + ",NAME:" + this->name + ",SETT_TYPE:" + this->type + ",POP:" + std::to_string(this->population) + ",ARMY:" + std::to_string(this->armedCitizens) + ",WEALTH:" + std::to_string(this->wealth) + ";";
 
 		locationFile << input << std::endl;
 

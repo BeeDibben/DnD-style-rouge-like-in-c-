@@ -8,11 +8,7 @@
 bool gameLoop = true;
 
 
-
-std::vector<Location> loadedLocations;
-
-std::vector<Settlement> loadedSettlements;
-
+int currentLocationID;
 
 
 //Location currentLocation;
@@ -54,23 +50,81 @@ void initialiseGameComponents() {
 }
 
 
-void buildAdjacentLocations() {
+void buildAdjacentLocations(Location currentLocation) {
 	int selectType = rand() % 2 + 1;
 
-	int idCounter = 0;
-	std::ifstream locationFile;
-	locationFile.open("Location.txt");
+	if (currentLocation.getAdjectentIds().empty()) {
+		std::ifstream locationFile;
+		locationFile.open("Location.txt");
 
-	while (locationFile.good())
-	{
-		idCounter++;
-	}
-	locationFile.close();
+		int newLoactions = 4;
 
-	if (selectType == 1) {
-		Settlement(idCounter);
+		for (int i = 0; i < newLoactions; i++)
+		{
+			int idCounter = 0;
+
+			while (locationFile.good())
+			{
+				idCounter++;
+			}
+			locationFile.close();
+
+			if (selectType == 1) {
+				Settlement newLocation(idCounter);
+				newLocation.printStats();
+
+				currentLocation.appenedAdjacent(newLocation.getId());
+			}
+		}
+		currentLocation.printAdjacentTileIDs();
 	}
+	
 }
+
+
+Location getLocation(int _id) {
+	std::ifstream fileSearcher("Location.txt");
+
+	int lineLocation = findIDInFile(_id);
+	int onLine = 1;
+
+	if (fileSearcher.is_open()) {
+		while (onLine < lineLocation)
+		{
+			onLine++;
+		}
+		if (onLine == lineLocation) {
+			
+		}
+	}
+
+
+
+}
+
+int findIDInFile(int _ID) {
+	std::ifstream fileSearcher("Location.txt");
+	std::string toFind = "ID:" + std::to_string(_ID);
+
+	std::string reader;
+
+	int lineCounter = 0;
+
+	while (fileSearcher.good())
+	{
+		lineCounter++;
+
+		fileSearcher >> reader;
+
+		if (toFind.find(reader)) {
+			fileSearcher.close();
+			return lineCounter;
+		}
+	}
+	fileSearcher.close();
+	return -1;
+}
+
 //Gameplay functions
 
 
@@ -102,8 +156,9 @@ int main()
 	mike.printStats();
 	steve.printStats();
 
-	mike.saveToLocation();
-	steve.saveToLocation();
+	currentLocationID = mike.getId();
+
+	buildAdjacentLocations();
 
 
 	//initialiseGameComponents();
