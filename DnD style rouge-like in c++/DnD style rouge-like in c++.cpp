@@ -7,7 +7,13 @@
 
 bool gameLoop = true;
 
-//std::vector<Location> 
+
+
+std::vector<Location> loadedLocations;
+
+std::vector<Settlement> loadedSettlements;
+
+
 
 //Location currentLocation;
 
@@ -21,31 +27,6 @@ void cleanUp() {
 	checkFile.close();
 }
 
-void locationFileWrite(const Location& givenLocation) {
-	
-
-
-
-	std::ofstream locationFile;
-
-	Settlement* given = 
-
-
-	locationFile.open("Location.txt", std::ios::app);
-	
-	if (givenLocation == "Settlement") {
-
-		//Settlement* settlement = 
-
-		//std::string input = std::to_string((Settlement*) givenLocation.getId()) + "," + (Settlement*)givenLocation.getName() + "," + (Settlement*)givenLocation.getType() + "," + std::to_string((Settlement*)givenLocation.getPopulation()) + "," + std::to_string((Settlement*)givenLocation.getFood()) + "," + std::to_string((Settlement*)givenLocation.getArmedCitizens()) + "," + std::to_string((Settlement*)givenLocation.getWealth()) + ";\n";
-
-		//std::cout << input;
-
-		//locationFile << input;
-	}
-
-	locationFile.close();
-}
 
 void locationFileRead() {
 
@@ -63,7 +44,6 @@ void logFileRead() {
 
 }
 
-//Gameplay functions
 
 void initialiseMemoryManagement() {
 	cleanUp();
@@ -71,9 +51,29 @@ void initialiseMemoryManagement() {
 
 void initialiseGameComponents() {
 	srand((int)time(0));
-
-
 }
+
+
+void buildAdjacentLocations() {
+	int selectType = rand() % 2 + 1;
+
+	int idCounter = 0;
+	std::ifstream locationFile;
+	locationFile.open("Location.txt");
+
+	while (locationFile.good())
+	{
+		idCounter++;
+	}
+	locationFile.close();
+
+	if (selectType == 1) {
+		Settlement(idCounter);
+	}
+}
+//Gameplay functions
+
+
 
 void intoduction() {
 
@@ -96,8 +96,14 @@ int main()
 
 	initialiseGameComponents();
 
-	locationFileWrite(Settlement(1));
-	locationFileWrite(Settlement(2));
+	Settlement mike(1);
+	Settlement steve(2);
+
+	mike.printStats();
+	steve.printStats();
+
+	mike.saveToLocation();
+	steve.saveToLocation();
 
 
 	//initialiseGameComponents();

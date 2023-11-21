@@ -1,4 +1,2 @@
-1,Crystal Frost,City,751,363,174,1043;
-
-2,Shadow Water,Large Town,395,316,56,565;
-
+1,Settlement,Silver Holm,Hamlet,13,8,22;
+2,Settlement,Star Nest,City,460,242,273;

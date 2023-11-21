@@ -25,23 +25,113 @@ public:
 		return this->subClassType;
 	}
 
+
+
 protected:
+	//unique datapoints
 	int LocationID;
 
 	std::string subClassType;
+
+	std::vector<int> adjacentTiles;
+
+	//Global constant variables:
+
+	std::string saveLocation = "Location.txt";
+
+
 };
 
 
+class Terrain : public Location {
+public:
+	Terrain(const int Id) : Location(Id, "Terrain") {
+		buildType();
+		buildStats();
+	}
+
+	Terrain(const int Id,const std::string _type,const int _monsters,const int _food,const int _loot) : Location(Id, "Terrain") {
+		type = _type;
+		monsters = _monsters;
+		food = _food;
+	}
+
+	~Terrain(){}
+
+	void buildType() {
+		int selection = rand() % 7;
+
+		switch (selection)
+		{
+		case 0:
+			type = "Plains";
+			break;
+		case 1:
+			type = "Forest";
+			break;
+		case 3:
+			type = "Mountains";
+			break;
+		case 4:
+			type = "Swamp";
+			break;
+		case 5:
+			type = "Monster_Camp";
+		default:
+			type = "Plains";
+			break;
+		}
+	}
+
+	void buildStats() {
+		if (type == "Plains") {
+			monsters = rand() % 4;
+			food = rand() % 10 + 10;
+			loot = rand() % 9;
+		}
+		if (type == "Forest") {
+			monsters = rand() % 2;
+			food = rand() % 25 + 15;
+			loot = rand() % 3;
+		}
+		if (type == "Mountains") {
+			monsters = rand() % 4;
+			food = rand() % 5;
+			loot = rand() % 20;
+		}
+		if (type == "Swamp") {
+			monsters = rand() % 2;
+			food = rand() % 10 + 10;
+			loot = rand() % 11;
+		}
+		if (type == "Monster_Camp") {
+			monsters = rand() % 8 + 2;
+			food = rand() % 30 + 20;
+			loot = rand() % 30 + 30;
+		}
+	
+	}
+
+private:
+	std::string type;
+	
+	int monsters;
+
+	int food;
+	int loot;
+};
 
 
 class Settlement : public Location
 {
 public:
-	Settlement(int passId) : Location(passId, "Settlement") {
+
+	Settlement(const int passId) : Location(passId, "Settlement") {
 		buildSettlement();
+		saveToLocation();
 	}
 
-	Settlement(int passId, std::string passName, std::string passType, int passPopulation, int passFood, int passArmedCitizens, int passWealth) : Location(passId, "Settlement") {
+	Settlement(const int passId, const std::string passName, const std::string passType,const int passPopulation,const int passFood,const int passArmedCitizens,const int passWealth) : Location(passId, "Settlement") {
 		name = passName;
 		type = passType;
 		population = passPopulation;
@@ -52,6 +142,22 @@ public:
 
 
 	~Settlement() {
+
+	}
+
+
+	void saveToLocation() {
+		std::ofstream locationFile;
+
+		std::string input;
+
+		locationFile.open("Location.txt", std::ios::app);
+
+		input = std::to_string(this->LocationID) + "," + this->subClassType + "," + this->name + "," + this->type + "," + std::to_string(this->population) + "," + std::to_string(this->armedCitizens) + "," + std::to_string(this->wealth) + ";";
+
+		locationFile << input << std::endl;
+
+		locationFile.close();
 
 	}
 
@@ -194,6 +300,10 @@ public:
 
 	}
 
+	
+
+
+	//Utilities
 
 	int getId() {
 		return this->LocationID;
@@ -224,6 +334,7 @@ public:
 	}
 
 
+
 private:
 	std::string name;
 
@@ -234,6 +345,7 @@ private:
 	int armedCitizens;
 	int wealth;
 	
+
 
 };
 
